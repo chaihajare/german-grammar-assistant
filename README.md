@@ -2,7 +2,8 @@
 
 An AI-powered German grammar analyser built with Groq and Streamlit. Paste any German sentence and choose exactly what you want to understand — no information overload.
 
-🚀 **Live Demo:** [[your-app-link.streamlit.app](https://german-grammar-assistant.streamlit.app/)]
+🚀 **Live Demo:** 
+[![german-grammar-assistant Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://german-grammar-assistant.streamlit.app)
 
 ---
 
