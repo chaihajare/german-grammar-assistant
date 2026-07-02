@@ -215,7 +215,7 @@ def show_breakdown(sentence):
 
 # ---------- UI ----------
 st.title("🇩🇪 German Grammar Assistant")
-st.caption("Paste a German sentence and choose what you want to analyse.")
+st.caption("Paste a German sentence — grammar is checked automatically. Choose what else you want to know.")
 
 sentence = st.text_area(
     "", placeholder="e.g. Ich habe gestern einen Apfel gegessen.",
@@ -223,34 +223,36 @@ sentence = st.text_area(
 )
 
 if sentence.strip():
-    st.markdown("**What do you want to know?**")
+    st.markdown("**What else do you want to know?**")
+
+    # Select All toggle
+    select_all = st.checkbox("✅ Select All")
+
     col1, col2 = st.columns(2)
     with col1:
-        do_meaning   = st.checkbox("📖 Translation")
-        do_tense     = st.checkbox("🕐 Tense & Why")
-        do_cases     = st.checkbox("📋 Cases & Gender")
+        do_meaning   = st.checkbox("📖 Translation", value=select_all)
+        do_tense     = st.checkbox("🕐 Tense & Why", value=select_all)
     with col2:
-        do_fix       = st.checkbox("✏️ Fix My Grammar")
-        do_breakdown = st.checkbox("🔤 Word-by-Word Breakdown")
+        do_cases     = st.checkbox("📋 Cases & Gender", value=select_all)
+        do_breakdown = st.checkbox("🔤 Word-by-Word Breakdown", value=select_all)
 
     if st.button("Analyse ✨", type="primary"):
-        if not any([do_meaning, do_tense, do_cases, do_fix, do_breakdown]):
-            st.warning("Please select at least one option.")
-        else:
-            if do_meaning:
-                show_meaning(sentence)
-                st.write("")
-            if do_tense:
-                show_tense(sentence)
-                st.write("")
-            if do_cases:
-                show_cases(sentence)
-                st.write("")
-            if do_fix:
-                show_fix(sentence)
-                st.write("")
-            if do_breakdown:
-                show_breakdown(sentence)
+        # Always show grammar check first, automatically
+        show_fix(sentence)
+        st.write("")
+
+        # Then show whatever else was selected
+        if do_meaning:
+            show_meaning(sentence)
+            st.write("")
+        if do_tense:
+            show_tense(sentence)
+            st.write("")
+        if do_cases:
+            show_cases(sentence)
+            st.write("")
+        if do_breakdown:
+            show_breakdown(sentence)
 else:
     st.info("👆 Enter a German sentence above to get started.")
 
